@@ -12,7 +12,6 @@ import { getLogger }        from './logger';
 import { PushWorker }       from './Push/PushWorker';
 import { ParseServerOptions }    from './Options';
 
-
 // Factory function
 const _ParseServer = function(options: ParseServerOptions) {
   const server = new ParseServer(options);
@@ -30,6 +29,7 @@ Object.defineProperty(module.exports, 'logger', {
 
 export default ParseServer;
 export {
+  OneSignalPushAdapter
   S3Adapter,
   GCSAdapter,
   FileSystemAdapter,
