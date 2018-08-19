@@ -1,4 +1,3 @@
-import OneSignalPushAdapter from 'parse-server-onesignal-push-adapter'
 import ParseServer          from './ParseServer';
 import S3Adapter            from '@parse/s3-files-adapter'
 import FileSystemAdapter    from '@parse/fs-files-adapter'
@@ -12,6 +11,7 @@ import { getLogger }        from './logger';
 import { PushWorker }       from './Push/PushWorker';
 import { ParseServerOptions }    from './Options';
 
+var OneSignalPushAdapter = require('parse-server-onesignal-push-adapter');
 var oneSignalPushAdapter = new OneSignalPushAdapter({
   oneSignalAppId:process.env.ONE_SIGNAL_APP_ID,
   oneSignalApiKey:process.env.ONE_SIGNAL_API_KEY
@@ -34,7 +34,6 @@ Object.defineProperty(module.exports, 'logger', {
 
 export default ParseServer;
 export {
-  OneSignalPushAdapter,
   S3Adapter,
   GCSAdapter,
   FileSystemAdapter,
