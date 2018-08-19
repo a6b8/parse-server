@@ -1,3 +1,4 @@
+import OneSignalPushAdapter from 'parse-server-onesignal-push-adapter'
 import ParseServer          from './ParseServer';
 import S3Adapter            from '@parse/s3-files-adapter'
 import FileSystemAdapter    from '@parse/fs-files-adapter'
@@ -10,6 +11,7 @@ import { useExternal }      from './deprecated';
 import { getLogger }        from './logger';
 import { PushWorker }       from './Push/PushWorker';
 import { ParseServerOptions }    from './Options';
+
 
 // Factory function
 const _ParseServer = function(options: ParseServerOptions) {
