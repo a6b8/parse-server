@@ -11,13 +11,6 @@ import { getLogger }        from './logger';
 import { PushWorker }       from './Push/PushWorker';
 import { ParseServerOptions }    from './Options';
 
-var OneSignalPushAdapter = require('./Adapters/Push/OneSignalPushAdapter');
-var pushConfig = {
-  oneSignalAppId:process.env.ONE_SIGNAL_APP_ID,
-  oneSignalApiKey:process.env.ONE_SIGNAL_API_KEY
-  };
-var oneSignalPushAdapter = new OneSignalPushAdapter(pushConfig);
-
 // Factory function
 const _ParseServer = function(options: ParseServerOptions) {
   const server = new ParseServer(options);
