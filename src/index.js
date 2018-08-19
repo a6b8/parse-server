@@ -34,7 +34,7 @@ Object.defineProperty(module.exports, 'logger', {
 
 export default ParseServer;
 export {
-  OneSignalPushAdapter
+  OneSignalPushAdapter,
   S3Adapter,
   GCSAdapter,
   FileSystemAdapter,
