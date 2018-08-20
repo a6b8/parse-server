@@ -17,6 +17,8 @@ export class OneSignalPushAdapter {
     this.validPushTypes = ['ios', 'android'];
     this.senderMap = {};
     this.OneSignalConfig = {};
+    console.log("onesignal-v1");
+    console.log(pushConfig);
     const { oneSignalAppId, oneSignalApiKey } = pushConfig;
     if (!oneSignalAppId || !oneSignalApiKey) {
       throw "Trying to initialize OneSignalPushAdapter without oneSignalAppId or oneSignalApiKey";
