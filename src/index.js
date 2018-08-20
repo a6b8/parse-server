@@ -13,7 +13,7 @@ import { ParseServerOptions }    from './Options';
 
 
 console.log("--INDEX.JS--");
-var OneSignalPushAdapter = require('parse-server/lib/Adapters/Push/OneSignalPushAdapter');
+var OneSignalPushAdapter = require('/parse-server/node_modules/parse-server-onesignal-push-adapter/lib/OneSignalPushAdapter.js');
 var oneSignalPushAdapter = new OneSignalPushAdapter({
 oneSignalAppId:"de902289-bf36-42a1-9e59-cb20d877d6ab",
 oneSignalApiKey:"ZjFhMWY0NmItZTY5OS00MTQ3LTllMTktM2NmMGZkYzNlNWIz"
