@@ -12,7 +12,7 @@ import { PushWorker }       from './Push/PushWorker';
 import { ParseServerOptions }    from './Options';
 
 
-console.log("--INDEX.JS--");
+console.log("--INDEX.JS--v2");
 var OneSignalPushAdapter = require('/parse-server/node_modules/parse-server-onesignal-push-adapter/lib/OneSignalPushAdapter.js');
 var oneSignalPushAdapter = new OneSignalPushAdapter({
 oneSignalAppId:"de902289-bf36-42a1-9e59-cb20d877d6ab",
