@@ -11,6 +11,19 @@ import { getLogger }        from './logger';
 import { PushWorker }       from './Push/PushWorker';
 import { ParseServerOptions }    from './Options';
 
+
+console.log("--INDEX.JS--");
+var OneSignalPushAdapter = require('parse-server/lib/Adapters/Push/OneSignalPushAdapter');
+var oneSignalPushAdapter = new OneSignalPushAdapter({
+oneSignalAppId:"de902289-bf36-42a1-9e59-cb20d877d6ab",
+oneSignalApiKey:"ZjFhMWY0NmItZTY5OS00MTQ3LTllMTktM2NmMGZkYzNlNWIz"
+});
+
+console.log(process.env.PARSE_SERVER_PUSH);
+console.log(process.env.PARSE_SERVER_PUSH.options);
+console.log(process.env.PARSE_SERVER_PUSH.options.oneSignalAppId);
+console.log(process.env.PARSE_SERVER_PUSH.options.oneSignalApiKey);
+
 // Factory function
 const _ParseServer = function(options: ParseServerOptions) {
   const server = new ParseServer(options);
