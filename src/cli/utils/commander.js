@@ -126,27 +126,28 @@ Command.prototype.parse = function(args, env) {
   }
 
   console.log("---- SET PROMISES ----");
-  var fs = [];
+  // var fs = [];
   var files_to_load_promises = [];
   for(var i = 0; i < files_to_load.length; i++) {
     console.log(i);
     var p = new Promise(function(resolve, reject) {
      var path  = files_to_load[i]["path_to_secret"];
      console.log(path);
-     fs[i] = require('fs');
-     fs[i].readFile(path, function(err,data) {
+     var fs = require('fs');
+     console.log("fs-loaded");
+     fs.readFile(path, function(err,data) {
           console.log("----PROMISE---");
           console.log(files_to_load[i]);
-         if(err){ 
-           console.log("REJECT");
-           reject();
-         } else {
-           console.log("RESOLVE");
-            var r = files_to_load[i];
-            r["from_secret"] = data.toString();
-           console.log(r);
-            resolve(r);
-         }
+          if(err){ 
+             console.log("REJECT");
+             reject();
+          } 
+          console.log("RESOLVE");
+          var r = files_to_load[i];
+          r["from_secret"] = data.toString();
+          console.log(r);
+          resolve(r);
+         
       });
     files_to_load_promises.push(p)
     })
