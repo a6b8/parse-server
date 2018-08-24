@@ -131,29 +131,22 @@ Command.prototype.parse = function(args, env) {
   for(var i = 0; i < files_to_load.length; i++) {
     console.log(i);
     var p = new Promise(function(resolve, reject) {
-     var path  = files_to_load[i]["path_to_secret"];
-     console.log(path);
-     var fs = require('fs');
-     console.log("---fs-loaded---");
-     console.log("---load sync---");
-     console.log("path: " + path);
-     var password_ = fs.readFileSync(path);
-     console.log("secret: " + password_);
-     console.log("---------");
-     fs.readFile(path, function(err,data) {
-          console.log("----PROMISE---");
-          console.log(files_to_load[i]);
-          if(err){ 
-             console.log("REJECT");
-             reject();
-          } 
-          console.log("RESOLVE");
-          var r = files_to_load[i];
-          r["from_secret"] = data.toString();
-          console.log(r);
-          resolve(r);
-         
-      });
+    var path  = files_to_load[i]["path_to_secret"];
+    console.log(path);
+    var fs = require('fs');
+    console.log("---fs-loaded---");
+    console.log("---load sync---");
+    console.log("path: " + path);
+    var password_ = fs.readFileSync(path);
+    console.log("secret: " + password_);
+    console.log("---------");
+    console.log("----PROMISE---");
+    console.log(files_to_load[i]);
+    console.log("RESOLVE");
+    var r = files_to_load[i];
+    r["from_secret"] = data.toString();
+    console.log(r);
+    resolve(r);
     files_to_load_promises.push(p)
     })
   }
