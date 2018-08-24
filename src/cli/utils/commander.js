@@ -105,48 +105,66 @@ Command.prototype._parse = Command.prototype.parse;
 Command.prototype.parse = function(args, env) {
   this._parse(args);
   
-  
-  /// DOCKER SECRET ----->
-  var fs = require('fs');
+    //---- >>>>>
+  console.log("---- FIND _FILE FILES ----");
   var keys = Object.keys(env);
-
+  var files_to_load = [];
   for(var i = 0; i < keys.length; i++) {
     var search = "_FILE";
     var l = keys[i].length;
     if(keys[i].substring(l-search.length, l).indexOf("_FILE") != -1) {
-       console.log("[" + i +"]");
        var secret = {
           "path_to_secret" : env[keys[i]],
           "from_secret" : "",
           "name_file" : keys[i],
           "name_default" : "",
        };
-       console.log("---1----");
-       console.log(secret);
        secret["name_default"] = keys[i].substring(0, l-search.length);
-       secret["from_secret"] = fs.readFileSync(secret["path_to_secret"]).toString();
-       env[secret["name_default"]] = secret["from_secret"];
-       console.log("---2----");
-       console.log(secret);
-       console.log("---3----");
-       console.log(env[secret["name_default"]]);
+       secret["from_secret"] = "";
+       files_to_load.push(secret);
     }
-   }
-  console.log("---ENV-AFTER--");
-  console.log(env);
-  console.log("----------");
-  /// <------- DOCKER SECRET
-  
-  
-  // Parse the environment first
-  const envOptions = parseEnvironment(env);
-  const fromFile = parseConfigFile(this);
-  // Load the env if not passed from command line
-  this.setValuesIfNeeded(envOptions);
-  // Load from file to override
-  this.setValuesIfNeeded(fromFile);
-  // Last set the defaults
-  this.setValuesIfNeeded(_defaults);
+  }
+
+  console.log("---- SET PROMISES ----");
+  var files_to_load_promises = [];
+  for(var i = 0; i < files_to_load.length; i++) {
+    var p = new Promise(function(resolve, reject) {
+     var path  = files_to_load[i]["path_to_secret"];
+     console.log(path);
+     var fs = require('fs');
+     fs.readFile(path, function(err,data) {
+         if(err){ reject();} else {
+            var r = files_to_load[i];
+            r["from_secret"] = data.toString();
+            resolve(r);
+         }
+      });
+    files_to_load_promises.push(p)
+    })
+  }
+
+
+  Promise.all(files_to_load_promises).then(function(values) {
+    console.log("---- PROMISE ALL ---- ");
+    console.log(values);
+    for(var i = 0; i < values.length; i++) {
+       env[values[i]["name_default"]] = values[i]["from_secret"];
+    }
+    console.log("---- ENV ---- ");
+    console.log(env);
+    // ---- OTHER CODE HERE --->
+
+    // Parse the environment first
+    const envOptions = parseEnvironment(env);
+    const fromFile = parseConfigFile(this);
+    // Load the env if not passed from command line
+    this.setValuesIfNeeded(envOptions);
+    // Load from file to override
+    this.setValuesIfNeeded(fromFile);
+    // Last set the defaults
+    this.setValuesIfNeeded(_defaults);
+  });
+  // <<<< -----
 };
 
 Command.prototype.getOptions = function() {
