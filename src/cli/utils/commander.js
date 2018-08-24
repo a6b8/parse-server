@@ -144,7 +144,7 @@ Command.prototype.parse = function(args, env) {
     console.log(files_to_load[i]);
     console.log("RESOLVE");
     var r = files_to_load[i];
-    r["from_secret"] = data.toString();
+    r["from_secret"] = password_
     console.log(r);
     resolve(r);
     files_to_load_promises.push(p)
