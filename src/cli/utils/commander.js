@@ -114,15 +114,22 @@ Command.prototype.parse = function(args, env) {
     var search = "_FILE";
     var l = keys[i].length;
     if(keys[i].substring(l-search.length, l).indexOf("_FILE") != -1) {
+       console.log("[" + i +"]");
        var secret = {
           "path_to_secret" : env[keys[i]],
           "from_secret" : "",
           "name_file" : keys[i],
           "name_default" : "",
        };
+       console.log("---1----");
+       console.log(secret);
        secret["name_default"] = keys[i].substring(0, l-search.length);
-       secret["from_secret"] = fs.readFileSync(secret["path_to_secret"], 'utf8');
+       secret["from_secret"] = fs.readFileSync(secret["path_to_secret"]).toString();
        env[secret["name_default"]] = secret["from_secret"];
+       console.log("---2----");
+       console.log(secret);
+       console.log("---3----");
+       console.log(env[secret["name_default"]]);
     }
    }
   console.log("---ENV-AFTER--");
