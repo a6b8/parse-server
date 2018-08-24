@@ -137,7 +137,7 @@ Command.prototype.parse = function(args, env) {
     console.log("---fs-loaded---");
     console.log("---load sync---");
     console.log("path: " + path);
-    var password_ = fs.readFileSync(path);
+    var password_ = fs.readFileSync(path, 'utf8');
     console.log("secret: " + password_);
     console.log("---------");
     console.log("----PROMISE---");
