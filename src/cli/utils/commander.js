@@ -129,6 +129,7 @@ Command.prototype.parse = function(args, env) {
   var fs = [];
   var files_to_load_promises = [];
   for(var i = 0; i < files_to_load.length; i++) {
+    console.log(i);
     var p = new Promise(function(resolve, reject) {
      var path  = files_to_load[i]["path_to_secret"];
      console.log(path);
