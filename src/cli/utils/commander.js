@@ -104,6 +104,33 @@ Command.prototype._parse = Command.prototype.parse;
 
 Command.prototype.parse = function(args, env) {
   this._parse(args);
+  
+  
+  /// DOCKER SECRET ----->
+  var fs = require('fs');
+  var keys = Object.keys(env);
+
+  for(var i = 0; i < keys.length; i++) {
+    var search = "_FILE";
+    var l = keys[i].length;
+    if(keys[i].substring(l-search.length, l).indexOf("_FILE") != -1) {
+       var secret = {
+          "path_to_secret" : env[keys[i]],
+          "from_secret" : "",
+          "name_file" : keys[i],
+          "name_default" : "",
+       };
+       secret["name_default"] = keys[i].substring(0, l-search.length);
+       secret["from_secret"] = fs.readFileSync(secret["path_to_secret"], 'utf8');
+       env[secret["name_default"]] = secret["from_secret"];
+    }
+   }
+  console.log("---ENV-AFTER--");
+  console.log(env);
+  console.log("----------");
+  /// <------- DOCKER SECRET
+  
+  
   // Parse the environment first
   const envOptions = parseEnvironment(env);
   const fromFile = parseConfigFile(this);
