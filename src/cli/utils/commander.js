@@ -105,7 +105,6 @@ Command.prototype._parse = Command.prototype.parse;
 Command.prototype.parse = function(args, env) {
   this._parse(args);
   
-    //---- >>>>>
   console.log("---- FIND _FILE FILES ----");
   var keys = Object.keys(env);
   var files_to_load = [];
@@ -129,6 +128,7 @@ Command.prototype.parse = function(args, env) {
   console.log("FILES LENGTH: " + files_to_load.length);
   console.log(files_to_load);
   console.log("---------");
+  
   var files_to_load_promises = [];
   for(var i = 0; i < files_to_load.length; i++) {
     console.log("[" + i + "]");
@@ -138,37 +138,27 @@ Command.prototype.parse = function(args, env) {
       var password_ = fs.readFileSync(path, 'utf8');
       var r = files_to_load[i];
       r["from_secret"] = password_
-      console.log(r);
+      env[r["name_default"]] = r["from_secret"];
       resolve(r);
     })
     files_to_load_promises.push(p)
   }
-
-  console.log("---files_to_load_promises---");
-  console.log("files_to_load_promises: " + files_to_load_promises.length);
-  console.log(files_to_load_promises);
   
-  Promise.all(files_to_load_promises).then(function(values) {
-    console.log("---- PROMISE ALL ---- ");
-    console.log(values);
-    for(var i = 0; i < values.length; i++) {
-       env[values[i]["name_default"]] = values[i]["from_secret"];
-    }
-    console.log("---- ENV ---- ");
-    console.log(env);
-    // ---- OTHER CODE HERE --->
+  console.log("--- files_to_load_promises---");
+  console.log( files_to_load_promises);
+  console.log("------ENV-----");
+  console.log(env);
+  
+  // Parse the environment first
+  const envOptions = parseEnvironment(env);
+  const fromFile = parseConfigFile(this);
+  // Load the env if not passed from command line
+  this.setValuesIfNeeded(envOptions);
+  // Load from file to override
+  this.setValuesIfNeeded(fromFile);
+  // Last set the defaults
+  this.setValuesIfNeeded(_defaults);
 
-    // Parse the environment first
-    const envOptions = parseEnvironment(env);
-    const fromFile = parseConfigFile(this);
-    // Load the env if not passed from command line
-    this.setValuesIfNeeded(envOptions);
-    // Load from file to override
-    this.setValuesIfNeeded(fromFile);
-    // Last set the defaults
-    this.setValuesIfNeeded(_defaults);
-  });
-  // <<<< -----
 };
 
 Command.prototype.getOptions = function() {
