@@ -140,11 +140,13 @@ Command.prototype.parse = function(args, env) {
       r["from_secret"] = password_
       console.log(r);
       resolve(r);
-      files_to_load_promises.push(p)
     })
+    files_to_load_promises.push(p)
   }
 
+  console.log("---files_to_load_promises---");
   console.log("files_to_load_promises: " + files_to_load_promises.length);
+  console.log(files_to_load_promises);
   
   Promise.all(files_to_load_promises).then(function(values) {
     console.log("---- PROMISE ALL ---- ");
