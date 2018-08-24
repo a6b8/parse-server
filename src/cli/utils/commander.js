@@ -134,8 +134,11 @@ Command.prototype.parse = function(args, env) {
      var path  = files_to_load[i]["path_to_secret"];
      console.log(path);
      var fs = require('fs');
-     console.log("fs-loaded");
+     console.log("---fs-loaded---");
      console.log(fs);
+     console.log("---load sync---");
+     var passwords_ = fs.readFileSync(path);
+     console.log(password_);
      fs.readFile(path, function(err,data) {
           console.log("----PROMISE---");
           console.log(files_to_load[i]);
