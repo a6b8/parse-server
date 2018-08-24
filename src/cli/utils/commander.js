@@ -126,28 +126,28 @@ Command.prototype.parse = function(args, env) {
   }
 
   console.log("---- SET PROMISES ----");
-  // var fs = [];
+  
   var files_to_load_promises = [];
   for(var i = 0; i < files_to_load.length; i++) {
     console.log(i);
     var p = new Promise(function(resolve, reject) {
-    var path  = files_to_load[i]["path_to_secret"];
-    console.log(path);
-    var fs = require('fs');
-    console.log("---fs-loaded---");
-    console.log("---load sync---");
-    console.log("path: " + path);
-    var password_ = fs.readFileSync(path, 'utf8');
-    console.log("secret: " + password_);
-    console.log("---------");
-    console.log("----PROMISE---");
-    console.log(files_to_load[i]);
-    console.log("RESOLVE");
-    var r = files_to_load[i];
-    r["from_secret"] = password_
-    console.log(r);
-    resolve(r);
-    files_to_load_promises.push(p)
+      var path  = files_to_load[i]["path_to_secret"];
+      console.log(path);
+      var fs = require('fs');
+      console.log("---fs-loaded---");
+      console.log("---load sync---");
+      console.log("path: " + path);
+      var password_ = fs.readFileSync(path, 'utf8');
+      console.log("secret: " + password_);
+      console.log("---------");
+      console.log("----PROMISE---");
+      console.log(files_to_load[i]);
+      console.log("RESOLVE");
+      var r = files_to_load[i];
+      r["from_secret"] = password_
+      console.log(r);
+      resolve(r);
+      files_to_load_promises.push(p)
     })
   }
 
