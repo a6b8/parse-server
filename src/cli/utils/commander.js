@@ -135,10 +135,11 @@ Command.prototype.parse = function(args, env) {
      console.log(path);
      var fs = require('fs');
      console.log("---fs-loaded---");
-     console.log(fs);
      console.log("---load sync---");
-     var passwords_ = fs.readFileSync(path);
-     console.log(password_);
+     console.log("path: " + path);
+     var password_ = fs.readFileSync(path);
+     console.log("secret: " + password_);
+     console.log("---------");
      fs.readFile(path, function(err,data) {
           console.log("----PROMISE---");
           console.log(files_to_load[i]);
