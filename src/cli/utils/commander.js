@@ -137,7 +137,7 @@ Command.prototype.parse = function(args, env) {
       var fs = require('fs');
       var password_ = fs.readFileSync(path, 'utf8');
       var r = files_to_load[i];
-      r["from_secret"] = password_
+      r["from_secret"] = password_.split("\n").join("")
       env[r["name_default"]] = r["from_secret"];
       resolve(r);
     })
